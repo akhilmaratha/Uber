@@ -1,8 +1,8 @@
-import  { useState } from 'react'
+import  { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-// import { CaptainDataContext } from '../context/CapatainContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { CaptainDataContext } from '../context/CaptainContext'
 
 const CaptainSignup = () => {
 
@@ -19,7 +19,7 @@ const CaptainSignup = () => {
   const [ vehicleType, setVehicleType ] = useState('')
 
 
-//   const { captain, setCaptain } = React.useContext(CaptainDataContext)
+  const { captain, setCaptain } = useContext(CaptainDataContext)
 
 
   const submitHandler = async (e) => {
@@ -39,11 +39,11 @@ const CaptainSignup = () => {
       }
     }
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData)
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/register`, captainData)
 
     if (response.status === 201) {
       const data = response.data
-    //   setCaptain(data.captain)
+      setCaptain(data.captain)
       localStorage.setItem('token', data.token)
       navigate('/captain-home')
     }
@@ -67,7 +67,7 @@ const CaptainSignup = () => {
           submitHandler(e)
         }}>
 
-          <h3 className='text-lg w-full  font-medium mb-2'>What's our Captain's name</h3>
+          <h3 className='text-lg w-full  font-medium mb-2'>What&apos;s our Captain&apos;s name</h3>
           <div className='flex gap-4 mb-7'>
             <input
               required
@@ -91,7 +91,7 @@ const CaptainSignup = () => {
             />
           </div>
 
-          <h3 className='text-lg font-medium mb-2'>What's our Captain's email</h3>
+          <h3 className='text-lg font-medium mb-2'>What&apos;s our Captain&apos;s email</h3>
           <input
             required
             value={email}
